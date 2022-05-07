@@ -2,9 +2,11 @@
  - hosts: web-portal
    tasks:
      - name: Updating system
-       apt: update_cache=yes
+       apt: update_cache=yes cache_valid_time=3600
+       sudo: yes
      - name: Install Apache2
        apt: name={{ item }}
+       sudo: yes
        with_items:
          - apache2
          - nginx
