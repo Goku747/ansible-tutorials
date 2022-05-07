@@ -4,7 +4,7 @@
      - name: Updating system
        apt: update_cache=yes
      - name: Install Apache2
-       apt: name={{with_item}}
+       apt: name={{ with_item }}
        with_item:
          - apache2
          - nginx
