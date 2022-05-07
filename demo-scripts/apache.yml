@@ -1,0 +1,20 @@
+---
+ - hosts: web-portal
+   tasks:
+     - name: Updating system
+       apt: update_cache=yes
+     - name: Install Apache2
+       apt: name={{with_item}}
+       with_item:
+         - apache2
+         - nginx
+     - name: copy data files
+       apt: src=index.html dest=/var/www/html
+     - name: Stop apache service
+       service: name=apache2 state=stopped
+     - name: copying template file
+       template: src=current.html.j2 dest=/var/www/html/current.html
+       notify: Start Apache
+   handlers:
+     - name: Start Apache
+       service: name=apache2 state=started
